@@ -6,6 +6,11 @@ Kavach (कवच, "armour") is a real antivirus for Windows 10 and 11, written 
 
 ---
 
+## Documentation
+
+- [User Manual (PDF)](docs/Kavach-User-Manual.pdf) — how to use every page of Kavach, with screenshots
+- [Technology Notes (PDF)](docs/Kavach-Technology-Notes.pdf) — what Kavach is built with and how it works
+
 ## Features
 
 ### Scanning

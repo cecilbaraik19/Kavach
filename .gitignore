@@ -5,3 +5,4 @@ publish/
 installer/Output/
 *.user
 FIX-GIT-PUSH.bat
+commit-message.txt

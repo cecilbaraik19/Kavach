@@ -23,7 +23,8 @@ echo.
 echo [2/3] Saving all changes as a NEW commit (never "amend")...
 "%GIT%" add -A || goto :fail
 "%GIT%" diff --cached --quiet && echo Nothing new to commit. && goto :push
-"%GIT%" commit -m "Kavach v%VERSION%" || goto :fail
+if exist commit-message.txt ("%GIT%" commit -F commit-message.txt || goto :fail) else ("%GIT%" commit -m "Kavach v%VERSION%" || goto :fail)
+del commit-message.txt 2>nul
 
 :push
 echo [3/3] Uploading to GitHub...
