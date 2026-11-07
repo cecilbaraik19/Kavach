@@ -1,0 +1,224 @@
+<UserControl x:Class="Kavach.App.Pages.HomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="34,30,34,30">
+            <!-- Admin note -->
+            <Border x:Name="AdminNote" Style="{StaticResource SoftCard}" Background="{DynamicResource WarningSoftBrush}"
+                    BorderBrush="{DynamicResource WarningSoftBrush}" Margin="0,0,0,22" Visibility="Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource Icon}" Text="&#xE7BA;" Foreground="{DynamicResource WarningBrush}" Margin="0,0,12,0"/>
+                    <TextBlock Grid.Column="1" x:Name="AdminNoteText" Style="{StaticResource Caption}" Foreground="{DynamicResource TextBrush}" VerticalAlignment="Center"
+                               Text="Kavach is running without administrator rights. Scanning works, but removing some threats, startup items and the hosts file need administrator rights."/>
+                    <Button Grid.Column="2" Content="Run as administrator" Style="{StaticResource SmallButton}" Margin="12,0,0,0" Click="Admin_Click"/>
+                </Grid>
+            </Border>
+
+            <TextBlock Style="{StaticResource Eyebrow}" Text="A LITTLE CARE.  A SAFER DAY."/>
+
+            <!-- Status hero -->
+            <Grid Margin="0,14,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border x:Name="HeroBubble" Width="76" Height="76" CornerRadius="38" Background="{DynamicResource SuccessSoftBrush}" VerticalAlignment="Center">
+                    <TextBlock x:Name="HeroIcon" Style="{StaticResource Icon}" Text="&#xEA18;" FontSize="34" HorizontalAlignment="Center"
+                               Foreground="{DynamicResource SuccessBrush}"/>
+                </Border>
+                <StackPanel Grid.Column="1" Margin="22,0,0,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="HeroTitle" Style="{StaticResource HeroTitle}" Text="You're protected"/>
+                    <TextBlock x:Name="HeroMessage" Style="{StaticResource PageSubtitle}" Margin="0,6,0,0" FontSize="14"/>
+                </StackPanel>
+                <Button x:Name="HeroAction" Grid.Column="2" Style="{StaticResource PrimaryButton}" VerticalAlignment="Center" Click="HeroAction_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{StaticResource Icon}" Text="&#xE721;" FontSize="13" Foreground="{DynamicResource OnAccentBrush}"/>
+                        <TextBlock x:Name="HeroActionText" Text="Quick scan" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <TextBlock Style="{StaticResource PageSubtitle}" Margin="0,30,0,14" Text="Choose how deep to look. Kavach will guide you through the rest."/>
+
+            <!-- Three scan tiles -->
+            <UniformGrid Columns="3" Margin="-8,0">
+                <Button Style="{StaticResource TileButton}" Margin="8" Tag="quick" Click="Tile_Click" Height="236">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Border Style="{StaticResource IconBubble}" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE945;" FontSize="18" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource Icon}" Text="&#xE8A7;" FontSize="13" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,18">
+                            <TextBlock Text="Quick scan" FontSize="21" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Style="{StaticResource Caption}" Margin="0,8,0,0" Text="Check the places malware hides: downloads, desktop, temp folders, startup and running programs."/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Style="{StaticResource Muted}" Text="A few minutes"/>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource TileButton}" Margin="8" Tag="full" Click="Tile_Click" Height="236">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Border Style="{StaticResource IconBubble}" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xEDA2;" FontSize="18" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource Icon}" Text="&#xE8A7;" FontSize="13" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,18">
+                            <TextBlock Text="Full scan" FontSize="21" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Style="{StaticResource Caption}" Margin="0,8,0,0" Text="Check every program, script and archive on every drive, plus startup items and the hosts file."/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Style="{StaticResource Muted}" Text="Can take a while"/>
+                    </Grid>
+                </Button>
+
+                <Button Style="{StaticResource TileButton}" Margin="8" Tag="custom" Click="Tile_Click" Height="236">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Border Style="{StaticResource IconBubble}" HorizontalAlignment="Left">
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE8B7;" FontSize="18" HorizontalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Style="{StaticResource Icon}" Text="&#xE8A7;" FontSize="13" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        </Grid>
+                        <StackPanel Grid.Row="1" VerticalAlignment="Bottom" Margin="0,0,0,18">
+                            <TextBlock Text="Custom scan" FontSize="21" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}"/>
+                            <TextBlock Style="{StaticResource Caption}" Margin="0,8,0,0" Text="Pick a file, a folder or a USB drive and check every file inside it."/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Style="{StaticResource Muted}" Text="You choose"/>
+                    </Grid>
+                </Button>
+            </UniformGrid>
+
+            <!-- Numbers -->
+            <UniformGrid Columns="4" Margin="-8,8,-8,0">
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Threats blocked"/>
+                        <TextBlock x:Name="StatBlocked" Style="{StaticResource BigNumber}" Margin="0,8,0,0" Text="0"/>
+                        <TextBlock Style="{StaticResource Muted}" Text="since installation"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="In quarantine"/>
+                        <TextBlock x:Name="StatQuarantine" Style="{StaticResource BigNumber}" Margin="0,8,0,0" Text="0"/>
+                        <TextBlock x:Name="StatQuarantineSize" Style="{StaticResource Muted}" Text="0 B"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Last scan"/>
+                        <TextBlock x:Name="StatLastScan" Style="{StaticResource BigNumber}" FontSize="22" Margin="0,12,0,4" Text="Never"/>
+                        <TextBlock x:Name="StatLastScanType" Style="{StaticResource Muted}" Text="-"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Signatures"/>
+                        <TextBlock x:Name="StatSignatures" Style="{StaticResource BigNumber}" Margin="0,8,0,0" Text="0"/>
+                        <TextBlock x:Name="StatSignaturesInfo" Style="{StaticResource Muted}" Text="-"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Lower row: protection modules + recent alerts -->
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="16"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Style="{StaticResource Card}" BorderThickness="1.2">
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Style="{StaticResource CardTitle}" Text="Protection modules"/>
+                            <Button Style="{StaticResource GhostButton}" HorizontalAlignment="Right" Content="Manage" Click="ManageProtection_Click" Margin="0,-6,-8,0"/>
+                        </Grid>
+                        <TextBlock x:Name="HostText" Style="{StaticResource Muted}" Margin="0,4,0,12"/>
+                        <ItemsControl x:Name="ModuleList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Fill="{Binding Brush}" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="12,0,0,0" FontSize="13" Foreground="{DynamicResource TextBrush}"/>
+                                        <TextBlock Grid.Column="2" Text="{Binding State}" Style="{StaticResource Caption}" Foreground="{Binding Brush}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource Card}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Recent alerts"/>
+                        <TextBlock x:Name="NoAlerts" Style="{StaticResource Muted}" Margin="0,10,0,0" Text="No alerts since Kavach started. All quiet."/>
+                        <ItemsControl x:Name="AlertList" Margin="0,8,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Ellipse Width="8" Height="8" Margin="0,5,0,0" VerticalAlignment="Top" Fill="{Binding Level, Converter={StaticResource LevelBrush}}"/>
+                                        <StackPanel Grid.Column="1" Margin="12,0,8,0">
+                                            <TextBlock Text="{Binding Title}" FontSize="12.5" FontWeight="SemiBold" Foreground="{DynamicResource TextBrush}"/>
+                                            <TextBlock Text="{Binding Message}" Style="{StaticResource Caption}" TextTrimming="CharacterEllipsis" TextWrapping="NoWrap"/>
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="2" Text="{Binding Time}" Style="{StaticResource Muted}"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Footer like the screenshot -->
+            <Rectangle Height="1" Fill="{DynamicResource DividerBrush}" Margin="0,26,0,14"/>
+            <Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Icon}" Text="&#xEA18;" FontSize="12" Foreground="{DynamicResource MutedBrush}"/>
+                    <TextBlock Style="{StaticResource Muted}" Margin="8,0,0,0" Text="Every threat goes to quarantine first, so you can always restore a file."/>
+                </StackPanel>
+                <Button Style="{StaticResource GhostButton}" HorizontalAlignment="Right" Click="Updates_Click" Margin="0,-6,-8,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Update signatures" FontSize="12"/>
+                        <TextBlock Style="{StaticResource Icon}" Text="&#xE72A;" FontSize="11" Margin="8,0,0,0" Foreground="{DynamicResource AccentTextBrush}"/>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

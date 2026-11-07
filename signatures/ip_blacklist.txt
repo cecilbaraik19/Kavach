@@ -1,0 +1,3 @@
+# Kavach — known malicious IP addresses (one per line).
+# Connections to these addresses are flagged as Critical on the Network Monitor page.
+# Add addresses from trusted threat feeds (for example abuse.ch Feodo Tracker: https://feodotracker.abuse.ch/blocklist/).

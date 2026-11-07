@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <!-- Windows Forms is used only for the system-tray icon and its notifications -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Kavach.App</RootNamespace>
+    <AssemblyName>Kavach</AssemblyName>
+    <ApplicationIcon>Assets\kavach.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Authors>Cecil Baraik</Authors>
+    <Company>Cecil Baraik</Company>
+    <Product>Kavach Antivirus</Product>
+    <Description>Kavach Antivirus</Description>
+    <Copyright>© 2026 Cecil Baraik</Copyright>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+    <StartupObject>Kavach.App.Program</StartupObject>
+  </PropertyGroup>
+
+  <!-- Kavach starts from Program.Main (Program.cs), so App.xaml is a normal page, not the auto-generated entry point -->
+  <ItemGroup>
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\kavach.ico" />
+    <Resource Include="Assets\kavach.png" />
+    <Resource Include="Assets\kavach-shield.png" />
+    <Resource Include="Assets\kavach-logo-full.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kavach.Core\Kavach.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\signatures\**\*" LinkBase="Signatures" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

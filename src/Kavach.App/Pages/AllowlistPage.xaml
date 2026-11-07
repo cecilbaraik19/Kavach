@@ -1,0 +1,72 @@
+<UserControl x:Class="Kavach.App.Pages.AllowlistPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Kavach.App.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="34,28,34,30">
+            <c:PageHeader Glyph="&#xE8FB;" Eyebrow="MANAGE" Title="Allowlist"
+                          Subtitle="Files and folders you trust. Kavach skips them in every scan and in real-time protection."/>
+            <c:StepBar Step1="Add a trusted file or folder" Step2="Kavach skips it" Step3="Remove it any time"/>
+
+            <Border Style="{StaticResource SoftCard}" Background="{DynamicResource WarningSoftBrush}" BorderBrush="{DynamicResource WarningSoftBrush}" Margin="0,0,0,16">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource Icon}" Text="&#xE7BA;" Foreground="{DynamicResource WarningBrush}"/>
+                    <TextBlock Style="{StaticResource Caption}" Foreground="{DynamicResource TextBrush}" Margin="12,0,0,0"
+                               Text="Only allow things you are sure are safe. Malware inside an allowed folder will not be detected."/>
+                </StackPanel>
+            </Border>
+
+            <Grid Margin="0,0,0,10">
+                <TextBlock Style="{StaticResource SectionTitle}" Margin="2,0,0,0" Text="SKIPPED FILES AND FOLDERS" VerticalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource SecondaryButton}" Content="Add file" Click="AddFile_Click" Margin="0,0,8,0"/>
+                    <Button Style="{StaticResource PrimaryButton}" Content="Add folder" Click="AddFolder_Click"/>
+                </StackPanel>
+            </Grid>
+            <TextBlock x:Name="NoPaths" Style="{StaticResource Muted}" Text="Nothing excluded." Margin="2,0,0,10"/>
+            <ItemsControl x:Name="PathList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource SoftCard}" Margin="0,0,0,6">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE8B7;" FontSize="13"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource Mono}" Text="{Binding}" Margin="12,0" Foreground="{DynamicResource TextBrush}" VerticalAlignment="Center"/>
+                                <Button Grid.Column="2" Style="{StaticResource SmallDangerButton}" Content="Remove" Tag="{Binding}" Click="RemovePath_Click"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Margin="0,24,0,10">
+                <TextBlock Style="{StaticResource SectionTitle}" Margin="2,0,0,0" Text="TRUSTED FILE FINGERPRINTS (SHA-256)" VerticalAlignment="Center"/>
+            </Grid>
+            <TextBlock Style="{StaticResource Caption}" Margin="2,0,0,10"
+                       Text="Added when you choose “Allow” on a detection or restore a file and trust it. If the file changes, its fingerprint changes and it is checked again."/>
+            <TextBlock x:Name="NoHashes" Style="{StaticResource Muted}" Text="No trusted fingerprints." Margin="2,0,0,10"/>
+            <ItemsControl x:Name="HashList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource SoftCard}" Margin="0,0,0,6">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Style="{StaticResource Icon}" Text="&#xE928;" FontSize="13"/>
+                                <TextBlock Grid.Column="1" Style="{StaticResource Mono}" Text="{Binding}" Margin="12,0" VerticalAlignment="Center"/>
+                                <Button Grid.Column="2" Style="{StaticResource SmallDangerButton}" Content="Remove" Tag="{Binding}" Click="RemoveHash_Click"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

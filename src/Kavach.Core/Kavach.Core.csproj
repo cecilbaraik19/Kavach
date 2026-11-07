@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>Kavach.Core</RootNamespace>
+    <AssemblyName>Kavach.Core</AssemblyName>
+    <Authors>Cecil Baraik</Authors>
+    <Company>Cecil Baraik</Company>
+    <Product>Kavach</Product>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Reads RAR, 7z, TAR and GZ archives (ZIP too) so malware hidden inside them is found -->
+    <PackageReference Include="SharpCompress" Version="0.38.0" />
+    <!-- Reads the PowerShell event log for script memory scanning -->
+    <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.1" />
+  </ItemGroup>
+
+</Project>

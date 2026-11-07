@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Kavach.Service</RootNamespace>
+    <AssemblyName>KavachService</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <Authors>Cecil Baraik</Authors>
+    <Company>Cecil Baraik</Company>
+    <Product>Kavach Antivirus</Product>
+    <Description>Kavach Antivirus background protection service</Description>
+    <Copyright>© 2026 Cecil Baraik</Copyright>
+    <ApplicationIcon>..\Kavach.App\Assets\kavach.ico</ApplicationIcon>
+    <NoWarn>$(NoWarn);CA1416</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kavach.Core\Kavach.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\signatures\**\*" LinkBase="Signatures" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

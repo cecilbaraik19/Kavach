@@ -1,0 +1,96 @@
+<UserControl x:Class="Kavach.App.Pages.UpdatesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Kavach.App.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="34,28,34,30">
+            <DockPanel LastChildFill="True">
+                <!-- Action buttons sit beside the header (named controls cannot go inside PageHeader) -->
+                <ContentControl DockPanel.Dock="Right" VerticalAlignment="Center" Margin="16,0,0,20" Focusable="False">
+                    <Button x:Name="DownloadButton" Style="{StaticResource PrimaryButton}" Click="Download_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Icon}" Text="&#xE896;" FontSize="13" Foreground="{DynamicResource OnAccentBrush}"/>
+                            <TextBlock x:Name="DownloadText" Text="Download latest" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </ContentControl>
+                <c:PageHeader Glyph="&#xE895;" Eyebrow="STAY CURRENT" Title="Signature Updates"
+                          Subtitle="Kavach recognises malware by its fingerprints (hashes) and detection rules. Keep them fresh to catch new threats."/>
+            </DockPanel>
+            <c:StepBar Step1="Download or import" Step2="Kavach checks the files" Step3="New threats are detected"/>
+
+            <UniformGrid Columns="4" Margin="-8,0,-8,8">
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Malware hashes"/>
+                        <TextBlock x:Name="NumHashes" Style="{StaticResource BigNumber}" Text="0" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Detection rules"/>
+                        <TextBlock x:Name="NumRules" Style="{StaticResource BigNumber}" Text="0" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Version"/>
+                        <TextBlock x:Name="NumVersion" Style="{StaticResource BigNumber}" Text="1" Margin="0,8,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource Caption}" Text="Last update"/>
+                        <TextBlock x:Name="NumUpdated" Style="{StaticResource BigNumber}" FontSize="20" Text="-" Margin="0,12,0,0"/>
+                        <TextBlock x:Name="NumSource" Style="{StaticResource Muted}"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <TextBlock x:Name="StatusText" Style="{StaticResource Caption}" Margin="2,4,0,12" Visibility="Collapsed"/>
+
+            <TextBlock Style="{StaticResource SectionTitle}" Text="ADD SIGNATURES YOURSELF" Margin="2,12,0,10"/>
+            <UniformGrid Columns="3" Margin="-8,0">
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Import hash list"/>
+                        <TextBlock Style="{StaticResource Caption}" Margin="0,6,0,14"
+                                   Text="Any .txt or .csv file with SHA-256 hashes, for example a MalwareBazaar or threat-report export."/>
+                        <Button Style="{StaticResource SecondaryButton}" Content="Choose file" HorizontalAlignment="Left" Click="ImportHashes_Click"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Import YARA rules"/>
+                        <TextBlock Style="{StaticResource Caption}" Margin="0,6,0,14"
+                                   Text="A .yar / .yara file. Kavach checks each rule and skips features it does not support."/>
+                        <Button Style="{StaticResource SecondaryButton}" Content="Choose file" HorizontalAlignment="Left" Click="ImportRules_Click"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource Card}" Margin="8">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource CardTitle}" Text="Add one hash"/>
+                        <TextBox x:Name="HashInput" Style="{StaticResource Input}" Margin="0,8,0,8" ToolTip="64-character SHA-256"/>
+                        <TextBox x:Name="HashName" Style="{StaticResource Input}" Margin="0,0,0,8" Text="Malware.Custom" ToolTip="Threat name"/>
+                        <Button Style="{StaticResource SecondaryButton}" Content="Add" HorizontalAlignment="Left" Click="AddHash_Click"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <TextBlock Style="{StaticResource SectionTitle}" Text="LOADED FILES" Margin="2,24,0,10"/>
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock x:Name="FilesText" Style="{StaticResource Mono}" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="RuleErrors" Style="{StaticResource Caption}" Foreground="{DynamicResource WarningBrush}" Margin="0,10,0,0"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                        <Button Style="{StaticResource SmallButton}" Content="Open signatures folder" Click="OpenFolder_Click" Margin="0,0,8,0"/>
+                        <Button Style="{StaticResource SmallButton}" Content="Reload" Click="Reload_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource Muted}" Margin="2,16,0,0"
+                       TextWrapping="Wrap" Text="“Download latest” fetches free detection rules from ReversingLabs on GitHub (MIT licence, no account needed). The Kavach service also does this automatically once a day. Optional: add an abuse.ch Auth-Key in Preferences to also get MalwareBazaar hashes."/>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

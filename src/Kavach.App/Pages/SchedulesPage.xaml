@@ -1,0 +1,135 @@
+<UserControl x:Class="Kavach.App.Pages.SchedulesPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:Kavach.App.Controls">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="34,28,34,30">
+            <DockPanel LastChildFill="True">
+                <!-- Action buttons sit beside the header (named controls cannot go inside PageHeader) -->
+                <ContentControl DockPanel.Dock="Right" VerticalAlignment="Center" Margin="16,0,0,20" Focusable="False">
+                    <Button Style="{StaticResource PrimaryButton}" Click="New_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource Icon}" Text="&#xE710;" FontSize="12" Foreground="{DynamicResource OnAccentBrush}"/>
+                            <TextBlock Text="New schedule" Margin="8,0,0,0"/>
+                        </StackPanel>
+                    </Button>
+                </ContentControl>
+                <c:PageHeader Glyph="&#xE787;" Eyebrow="YOUR WORKSPACE" Title="Schedules"
+                          Subtitle="Automate scans. If your PC was off at the planned time, Kavach runs the scan as soon as it starts."/>
+            </DockPanel>
+            <c:StepBar Step1="Choose the scan" Step2="Pick a time and frequency" Step3="Save your routine"/>
+
+            <!-- Editor -->
+            <Border x:Name="Editor" Style="{StaticResource Card}" Margin="0,0,0,18" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock x:Name="EditorTitle" Style="{StaticResource CardTitle}" Text="New schedule"/>
+                    <Grid Margin="0,14,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource Muted}" Text="Name" Margin="0,0,0,6"/>
+                            <TextBox x:Name="NameBox" Style="{StaticResource Input}" Text="Weekly safety check"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Style="{StaticResource Muted}" Text="Scan" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="TypeBox" Style="{StaticResource Combo}" SelectedIndex="0">
+                                <ComboBoxItem Content="Quick scan"/>
+                                <ComboBoxItem Content="Full scan"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="4">
+                            <TextBlock Style="{StaticResource Muted}" Text="How often" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="FrequencyBox" Style="{StaticResource Combo}" SelectedIndex="1" SelectionChanged="Frequency_Changed">
+                                <ComboBoxItem Content="Every day"/>
+                                <ComboBoxItem Content="Every week"/>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Grid.Column="6" x:Name="DayPanel">
+                            <TextBlock Style="{StaticResource Muted}" Text="Day" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="DayBox" Style="{StaticResource Combo}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="8">
+                            <TextBlock Style="{StaticResource Muted}" Text="Time (24h)" Margin="0,0,0,6"/>
+                            <ComboBox x:Name="TimeBox" Style="{StaticResource Combo}"/>
+                        </StackPanel>
+                    </Grid>
+                    <CheckBox x:Name="BatteryBox" Style="{StaticResource Check}" Content="Wait until the laptop is plugged in, and pause during full-screen games or videos" IsChecked="True" Margin="0,14,0,0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
+                        <Button Style="{StaticResource SecondaryButton}" Content="Cancel" Click="CancelEdit_Click" Margin="0,0,8,0"/>
+                        <Button Style="{StaticResource PrimaryButton}" Content="Save schedule" Click="Save_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <TextBlock Style="{StaticResource CardTitle}" Text="Coming up next"/>
+            <TextBlock Style="{StaticResource Caption}" Text="Planned times. Run conditions (battery, full-screen) can delay a scan." Margin="0,4,0,12"/>
+            <Border x:Name="NextCard" Style="{StaticResource Card}" Margin="0,0,0,18">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Width="54" Height="58" CornerRadius="10" BorderBrush="{DynamicResource CardBorderBrush}" BorderThickness="1">
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock x:Name="NextMonth" FontSize="10" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="{DynamicResource AccentTextBrush}"/>
+                            <TextBlock x:Name="NextDay" FontSize="22" FontWeight="SemiBold" HorizontalAlignment="Center" Foreground="{DynamicResource TextBrush}"/>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                        <TextBlock x:Name="NextName" Style="{StaticResource CardTitle}" FontSize="14"/>
+                        <TextBlock x:Name="NextWhen" Style="{StaticResource Caption}" Margin="0,3,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <TextBlock x:Name="EmptyText" Style="{StaticResource Muted}" Text="No schedules yet. Press “New schedule” to create one." Margin="2,0,0,0"/>
+            <ItemsControl x:Name="ScheduleList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}" Margin="0,0,0,10">
+                            <StackPanel>
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Name}" Style="{StaticResource CardTitle}"/>
+                                        <TextBlock Text="{Binding Describe}" Style="{StaticResource Caption}" Margin="0,4,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <Button Style="{StaticResource GhostButton}" Tag="{Binding}" Click="Edit_Click" ToolTip="Edit">
+                                            <TextBlock Style="{StaticResource Icon}" Text="&#xE70F;" FontSize="13"/>
+                                        </Button>
+                                        <Button Style="{StaticResource GhostButton}" Tag="{Binding}" Click="Delete_Click" ToolTip="Delete">
+                                            <TextBlock Style="{StaticResource Icon}" Text="&#xE74D;" FontSize="13" Foreground="{DynamicResource DangerBrush}"/>
+                                        </Button>
+                                        <CheckBox Style="{StaticResource Switch}" IsChecked="{Binding Enabled, Mode=OneWay}" Tag="{Binding}" Click="Toggle_Click" Margin="10,0,0,0"/>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                                    <Button Style="{StaticResource SmallButton}" Content="Run now" Tag="{Binding}" Click="RunNow_Click"/>
+                                    <Border Style="{StaticResource Badge}" Background="{DynamicResource CardHoverBrush}" Margin="10,0,0,0">
+                                        <TextBlock Text="{Binding TypeText}" Style="{StaticResource Caption}"/>
+                                    </Border>
+                                </StackPanel>
+                                <Rectangle Height="1" Fill="{DynamicResource DividerBrush}" Margin="0,14,0,10"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource Icon}" Text="&#xE823;" FontSize="12" Foreground="{DynamicResource AccentTextBrush}"/>
+                                    <TextBlock Text="{Binding NextText}" Style="{StaticResource Caption}" Margin="8,0,0,0"/>
+                                    <TextBlock Text="  —  " Style="{StaticResource Muted}"/>
+                                    <TextBlock Text="{Binding LastText}" Style="{StaticResource Caption}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
