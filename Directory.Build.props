@@ -2,6 +2,6 @@
   <!-- The ONE place to change Kavach's version number.
        build.ps1 also passes it to the installer, and Kavach compares it with GitHub Releases when checking for updates. -->
   <PropertyGroup>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 </Project>

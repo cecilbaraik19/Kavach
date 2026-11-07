@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <!-- Reads RAR, 7z, TAR and GZ archives (ZIP too) so malware hidden inside them is found -->
-    <PackageReference Include="SharpCompress" Version="0.38.0" />
+    <PackageReference Include="SharpCompress" Version="0.50.8" />
     <!-- Reads the PowerShell event log for script memory scanning -->
     <PackageReference Include="System.Diagnostics.EventLog" Version="8.0.1" />
   </ItemGroup>

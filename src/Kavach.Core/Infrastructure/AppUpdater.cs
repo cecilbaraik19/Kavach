@@ -165,7 +165,7 @@ public sealed class AppUpdater
         }
     }
 
-    /// <summary>Starts the verified installer. Windows shows the administrator prompt; the installer closes Kavach and restarts it.</summary>
+    /// <summary>Starts the verified installer. It shows the administrator prompt itself, closes Kavach and reopens it as the normal user.</summary>
     public bool StartInstaller(string path, out string message)
     {
         try
@@ -174,8 +174,9 @@ public sealed class AppUpdater
             {
                 FileName = path,
                 Arguments = "/SILENT /SUPPRESSMSGBOXES /NORESTART /CLOSEAPPLICATIONS",
-                UseShellExecute = true,
-                Verb = "runas"
+                // No "runas" here: the installer asks for administrator rights itself. That way it still
+                // knows the normal user and reopens Kavach without administrator rights afterwards.
+                UseShellExecute = true
             });
             _ctx.Log.Info("Updates", "Started the Kavach update installer");
             message = "Installing the update — Kavach will restart by itself.";

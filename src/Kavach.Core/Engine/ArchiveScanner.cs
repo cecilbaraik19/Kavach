@@ -21,7 +21,7 @@ public static class ArchiveScanner
         try
         {
             using var stream = new MemoryStream(archiveData, writable: false);
-            using var archive = ArchiveFactory.Open(stream);
+            using var archive = ArchiveFactory.OpenArchive(stream);
 
             var count = 0;
             long total = 0;

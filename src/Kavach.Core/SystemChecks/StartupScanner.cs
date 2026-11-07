@@ -387,6 +387,14 @@ public static class StartupScanner
         item.FilePath = target;
         item.FileExists = target != null && File.Exists(target);
 
+        // Microsoft Store apps live in a protected folder a normal user cannot look into
+        if (!item.FileExists && target != null && target.Contains(@"\WindowsApps\", StringComparison.OrdinalIgnoreCase))
+        {
+            item.Risk = ThreatLevel.None;
+            item.Reason = "Microsoft Store app (protected Windows folder)";
+            return;
+        }
+
         if (!item.FileExists)
         {
             item.Risk = ThreatLevel.Low;
@@ -455,7 +463,7 @@ public static class StartupScanner
             if (candidate == command && parts.Length > 0) candidate = parts[0];
         }
 
-        candidate = candidate.Trim().TrimEnd(',');
+        candidate = candidate.Trim().Trim('"').TrimEnd(',');
         if (!Path.IsPathRooted(candidate))
         {
             var system = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), candidate);
