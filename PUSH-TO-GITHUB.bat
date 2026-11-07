@@ -21,6 +21,7 @@ echo [1/3] Getting the latest state from GitHub...
 "%GIT%" status --short
 echo.
 echo [2/3] Saving all changes as a NEW commit (never "amend")...
+"%GIT%" add --renormalize . || goto :fail
 "%GIT%" add -A || goto :fail
 "%GIT%" diff --cached --quiet && echo Nothing new to commit. && goto :push
 if exist commit-message.txt ("%GIT%" commit -F commit-message.txt || goto :fail) else ("%GIT%" commit -m "Kavach v%VERSION%" || goto :fail)

@@ -61,3 +61,16 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Binary files: never change their line endings (a changed PDF, image or
+# installer is a broken file)
+###############################################################################
+*.pdf binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.bmp binary
+*.exe binary
+*.dll binary
+*.zip binary
