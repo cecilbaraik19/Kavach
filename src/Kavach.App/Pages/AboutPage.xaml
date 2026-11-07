@@ -17,21 +17,21 @@
             </StackPanel>
 
             <TextBlock Style="{StaticResource PageSubtitle}" Margin="0,22,0,0" FontSize="13.5"
-                       Text="Kavach (कवच) means “armour”. It protects Windows PCs with real-time file protection, a multi-engine malware scanner, ransomware bait files, USB protection, startup and hosts checks, a network monitor and a quarantine vault — running as a Windows service so protection is always on."/>
+                       Text="Kavach (कवच) means “armour”. It protects Windows PCs with real-time file protection, a multi-engine malware scanner, ransomware bait files, USB protection, startup and hosts checks, a network monitor and a quarantine vault — running as a Windows service so protection is always on. It updates its detection rules every day and updates itself from GitHub."/>
 
             <UniformGrid Columns="2" Margin="-8,22,-8,0">
                 <Border Style="{StaticResource Card}" Margin="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource CardTitle}" Text="Detection engine"/>
                         <TextBlock Style="{StaticResource Caption}" Margin="0,8,0,0" LineHeight="20"
-                                   Text="• SHA-256 known-malware hashes (MalwareBazaar)&#x0a;• YARA-compatible rule engine&#x0a;• PE heuristics: packers, entropy, injection / keylogger APIs&#x0a;• Script analysis: PowerShell, VBS, JS, BAT, HTA, LNK&#x0a;• ZIP / RAR / 7z / TAR / GZ scanning&#x0a;• Fake system files, double extensions, RTLO tricks&#x0a;• Authenticode signature checks"/>
+                                   Text="• SHA-256 known-malware hashes&#x0a;• YARA-compatible rule engine + free ReversingLabs rules (updated daily)&#x0a;• Script memory scanning: fileless PowerShell attacks&#x0a;• Ransomware bait files&#x0a;• PE heuristics: packers, entropy, injection / keylogger APIs&#x0a;• Script analysis: PowerShell, VBS, JS, BAT, HTA, LNK&#x0a;• ZIP / RAR / 7z / TAR / GZ scanning&#x0a;• Fake system files, double extensions, RTLO tricks&#x0a;• Authenticode signature checks"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource Card}" Margin="8">
                     <StackPanel>
                         <TextBlock Style="{StaticResource CardTitle}" Text="Built with"/>
                         <TextBlock Style="{StaticResource Caption}" Margin="0,8,0,0" LineHeight="20"
-                                   Text="• C# 12 and .NET 8&#x0a;• WPF desktop interface&#x0a;• Windows Service (Microsoft.Extensions.Hosting)&#x0a;• Win32 APIs: WinVerifyTrust, IP Helper, process security&#x0a;• SharpCompress for archives&#x0a;• Named pipes between service and app"/>
+                                   Text="• C# 12 and .NET 8&#x0a;• WPF desktop interface&#x0a;• Windows Service (Microsoft.Extensions.Hosting)&#x0a;• Win32 APIs: WinVerifyTrust, IP Helper, process security&#x0a;• SharpCompress for archives&#x0a;• Named pipes between service and app&#x0a;• PowerShell event log (script block logging)&#x0a;• Self-update from GitHub Releases"/>
                     </StackPanel>
                 </Border>
             </UniformGrid>
